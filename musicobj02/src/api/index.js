@@ -7,8 +7,8 @@ export  function getBanner(type=0){
     return axios.get(`${baseUrl}/banner?type=${type}`);
 
 }
-export function getIconlist(limit=6){
+export function getMusic(limit=10){
     return axios.get(`${baseUrl}/personalized?limit=${limit}`)
 }
 
-export default {getBanner,getIconlist}
+export default {getBanner,getMusic}
