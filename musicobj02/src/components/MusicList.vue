@@ -58,7 +58,7 @@ export default {
   /* color: white; */
   text-align: left;
   font-size: 24px;
-  
+
 }
 </style>
   
