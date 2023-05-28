@@ -10,5 +10,8 @@ export  function getBanner(type=0){
 export function getMusic(limit=10){
     return axios.get(`${baseUrl}/personalized?limit=${limit}`)
 }
+export function getPlaylist(id){
+    return axios.get(`${baseUrl}/playlist/detail?id=${id}`)
+}
 
-export default {getBanner,getMusic}
+export default {getBanner,getMusic,getPlaylist}
