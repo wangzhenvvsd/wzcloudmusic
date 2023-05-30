@@ -2,17 +2,17 @@
     <div>
         <div class="playController">
             <div class="left">
-                <img :src="playlist[playCurrentIndex].al" alt="">
+                <img :src="playlist[playCurrentIndex].al.picUrl" alt="" @click="show=!show">
                 <div class="content">
                     <div>{{ playlist[playCurrentIndex].name }}</div>
                     <div>横划可切换上下首</div>
                 </div>
             </div>
             <div class="right">
-                <svg class="icon" aria-hidden="true" @click="kai" v-if="playnup">
+                <svg v-if="playnup" class="icon" aria-hidden="true" @click="play">
                     <use xlink:href="#icon-bofang1"></use>
                 </svg>
-                <svg class="icon" aria-hidden="true" @click="ting" v-else="">
+                <svg v-else class="icon" aria-hidden="true" @click="play">
                     <use xlink:href="#icon-iconstop"></use>
                 </svg>
                 <svg class="icon" aria-hidden="true">
@@ -20,32 +20,50 @@
                 </svg>
             </div>
         </div>
+        <!-- 歌曲详情页 -->
+        <play-music v-show="show" :playnup="playnup" :play="play" :playDetail="playlist[playCurrentIndex]" @back="show=!show"></play-music>
         <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"></audio>
     </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
+import playMusic from '@/components/PlayMusic.vue'
 export default {
     name: "playcontroller",
     data() {
         return {
-            playnup:true
+            playnup: true,
+            show:false
         }
     },
-    computed:{
-        ...mapState(["playlist","playCurrentIndex"])  //获取正在播放曲列表，以及正在播放歌曲下标
+    computed: {
+        ...mapState(["playlist", "playCurrentIndex"])  //获取正在播放曲列表，以及正在播放歌曲下标
+
     },
-    methods:{
-        kai(){
-            //this.$refs.audio 获取audio标签
-            this.$refs.audio.play()
-            this.playnup = false
+    methods: {
+        // kai(){
+        //     //this.$refs.audio 获取audio标签
+        //     this.$refs.audio.play()
+        //     this.playnup = false
+        // },
+        // ting(){
+        //     this.$refs.audio.pause()
+        //     this.playnup = true
+        // }
+        play() {
+            if (this.$refs.audio.paused) {//检测是否处于暂停状态
+                this.$refs.audio.play()
+                this.playnup = false
+            } else {
+                this.$refs.audio.pause()
+                this.playnup = true
+            }
         },
-        ting(){
-            this.$refs.audio.pause()
-            this.playnup = true
-        }
+
+    },
+    components: {
+        playMusic
     }
 };
 </script>
