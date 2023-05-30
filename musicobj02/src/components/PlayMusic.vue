@@ -21,7 +21,7 @@
         </div>
         <div v-else class="playContent" @click="isyric=!isyric">
             <!-- class有active针头落下 没有class针头抬起 只有值为true才会添加class -->
-            <img class="needle" :class="{active:!playunp}" src="@/assets/img/needle-ip6.png" alt="">
+            <img class="needle" :class="{active:!playnup}" src="@/assets/img/needle-ip6.png" alt="">
             <img class="disc" src="@/assets/img/disc-ip6.png" alt="">
             <img class="playImg" :src="playDetail.al.picUrl" alt="">
         </div>
