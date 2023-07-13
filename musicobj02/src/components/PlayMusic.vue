@@ -17,7 +17,7 @@
             </div>
         </div>
         <div v-if="isyric" class="playLyric" @click="isyric=!isyric">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio necessitatibus architecto quasi ipsam sunt ad, eum illum sit expedita accusantium.
+            {{ lyric }}
         </div>
         <div v-else class="playContent" @click="isyric=!isyric">
             <!-- class有active针头落下 没有class针头抬起 只有值为true才会添加class -->
@@ -58,7 +58,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(["playCurrentIndex","playlist"])//当前播放音乐的下标
+        ...mapState(["playCurrentIndex","playlist","lyric"])//当前播放音乐的下标
     },
     methods:{
         tabMusic(num){

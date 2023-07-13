@@ -14,4 +14,13 @@ export function getPlaylist(id){
     return axios.get(`${baseUrl}/playlist/detail?id=${id}`)
 }
 
-export default {getBanner,getMusic,getPlaylist}
+//获取歌词api
+export function getLyric(id){
+    return axios.get(`${baseUrl}/lyric?id=${id}`)
+}
+//获取搜索api
+export function searchMusic(keywords){
+    return axios.get(`${baseUrl}/search?keywords=${keywords}`)
+}
+
+export default {getBanner,getMusic,getPlaylist,getLyric,searchMusic}

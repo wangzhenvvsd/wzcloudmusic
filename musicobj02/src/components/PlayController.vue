@@ -2,7 +2,7 @@
     <div>
         <div class="playController">
             <div class="left">
-                <img :src="playlist[playCurrentIndex].al.picUrl" alt="" @click="show=!show">
+                <img :src="playlist[playCurrentIndex].al.picUrl" alt="" @click="show = !show">
                 <div class="content">
                     <div>{{ playlist[playCurrentIndex].name }}</div>
                     <div>横划可切换上下首</div>
@@ -21,21 +21,37 @@
             </div>
         </div>
         <!-- 歌曲详情页 -->
-        <play-music v-show="show" :playnup="playnup" :play="play" :playDetail="playlist[playCurrentIndex]" @back="show=!show"></play-music>
-        <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"></audio>
+        <play-music v-show="show" :playnup="playnup" :play="play" :playDetail="playlist[playCurrentIndex]"
+            @back="show = !show"></play-music>
+        <audio ref="audio"
+            :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"></audio>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import playMusic from '@/components/PlayMusic.vue'
+import { onMounted } from 'vue'
+import {getLyric} from '@/api/index.js'
+import store from '@/store/index.js'
 export default {
     name: "playcontroller",
     data() {
         return {
             playnup: true,
-            show:false
+            show: false
         }
+    },
+
+    async mounted() {
+        var res =await getLyric(this.playlist[this.playCurrentIndex].id)
+        console.log(res)
+        store.commit("setLyric",res.data.lrc.lyric)//修改状态管理库的歌词
+    },
+    async updated() {
+        var res =await getLyric(this.playlist[this.playCurrentIndex].id)
+        console.log(res)
+        store.commit("setLyric",res.data.lrc.lyric)
     },
     computed: {
         ...mapState(["playlist", "playCurrentIndex"])  //获取正在播放曲列表，以及正在播放歌曲下标
